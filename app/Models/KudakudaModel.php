@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class KudakudaModel extends Model
+class KudaKudaModel extends Model
 {
     protected $table            = 'kuda_kuda';
     protected $primaryKey       = 'id';
