@@ -18,6 +18,20 @@ class PoomsaeController extends ResourceController
     public function index()
     {
         $data = $this->model->findAll();
+        $baseUrl = rtrim(base_url(), '/');
+
+        foreach ($data as &$row) {
+
+            // image utama
+            $row['image_url'] = !empty($row['image'])
+                ? $baseUrl . '/img/poomsae/poomsae/' . $row['image']
+                : null;
+
+            // bagan / chart
+            $row['chart_image_url'] = !empty($row['chart_image'])
+                ? $baseUrl . '/img/poomsae/bagan/' . $row['chart_image']
+                : null;
+        }
 
         if (empty($data)) {
             return $this->failNotFound(
@@ -27,29 +41,43 @@ class PoomsaeController extends ResourceController
 
         return $this->respond([
             'status'  => true,
-            'message' => 'Data poomsae berhasil diambil',
+            'message' => 'Data tendangan berhasil diambil',
             'data'    => $data
         ], ResponseInterface::HTTP_OK);
     }
 
     /**
-     * GET /api/poomsae/{id}
+     * GET /api/tendangan/{id}
      * Pengujian Normal      : 200 OK
      * Pengujian Tidak Normal: 404 Not Found
      */
     public function show($id = null)
     {
         $data = $this->model->find($id);
+        $baseUrl = rtrim(base_url(), '/');
 
+        foreach ($data as &$row) {
+
+            // image utama
+            $row['image_url'] = !empty($row['image'])
+                ? $baseUrl . '/img/poomsae/poomsae/' . $row['image']
+                : null;
+
+            // bagan / chart
+            $row['chart_image_url'] = !empty($row['chart_image'])
+                ? $baseUrl . '/img/poomsae/bagan/' . $row['chart_image']
+                : null;
+        }
+        
         if (!$data) {
             return $this->failNotFound(
-                'Data poomsae tidak ditemukan'
+                'Data tendangan tidak ditemukan'
             );
         }
 
         return $this->respond([
             'status'  => true,
-            'message' => 'Detail poomsae berhasil diambil',
+            'message' => 'Detail tendangan berhasil diambil',
             'data'    => $data
         ], ResponseInterface::HTTP_OK);
     }
@@ -67,7 +95,7 @@ class PoomsaeController extends ResourceController
     }
 
     /**
-     * POST /api/poomsae
+     * POST /api/tendangan
      * Pengujian Normal      : 201 Created
      * Pengujian Tidak Normal: 400 Bad Request
      */
@@ -83,7 +111,7 @@ class PoomsaeController extends ResourceController
 
         return $this->respondCreated([
             'status'  => true,
-            'message' => 'Data poomsae berhasil ditambahkan'
+            'message' => 'Data tendangan berhasil ditambahkan'
         ]);
     }
 
@@ -100,7 +128,7 @@ class PoomsaeController extends ResourceController
     }
 
     /**
-     * PUT /api/poomsae/{id}
+     * PUT /api/tendangan/{id}
      * Pengujian Normal      : 200 OK
      * Pengujian Tidak Normal: 404 Not Found
      */
@@ -108,7 +136,7 @@ class PoomsaeController extends ResourceController
     {
         if (!$this->model->find($id)) {
             return $this->failNotFound(
-                'Data poomsae tidak ditemukan'
+                'Data tendangan tidak ditemukan'
             );
         }
 
@@ -122,12 +150,12 @@ class PoomsaeController extends ResourceController
 
         return $this->respond([
             'status'  => true,
-            'message' => 'Data poomsae berhasil diperbarui'
+            'message' => 'Data tendangan berhasil diperbarui'
         ], ResponseInterface::HTTP_OK);
     }
 
     /**
-     * DELETE /api/poomsae/{id}
+     * DELETE /api/tendangan/{id}
      * Pengujian Normal      : 200 OK
      * Pengujian Tidak Normal: 404 Not Found
      */
@@ -135,7 +163,7 @@ class PoomsaeController extends ResourceController
     {
         if (!$this->model->find($id)) {
             return $this->failNotFound(
-                'Data poomsae tidak ditemukan'
+                'Data tendangan tidak ditemukan'
             );
         }
 
@@ -143,7 +171,7 @@ class PoomsaeController extends ResourceController
 
         return $this->respondDeleted([
             'status'  => true,
-            'message' => 'Data poomsae berhasil dihapus'
+            'message' => 'Data tendangan berhasil dihapus'
         ]);
     }
 }

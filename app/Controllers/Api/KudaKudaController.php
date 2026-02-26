@@ -18,6 +18,15 @@ class KudaKudaController extends ResourceController
     public function index()
     {
         $data = $this->model->findAll();
+        $baseUrl = rtrim(base_url(), '/');
+
+        foreach ($data as &$row) {
+            if (!empty($row['image'])) {
+                $row['image_url'] = $baseUrl . '/img/teknik/kuda-kuda/' . $row['image'];
+            } else {
+                $row['image_url'] = null;
+            }
+        }
 
         if (empty($data)) {
             return $this->failNotFound(
@@ -45,6 +54,14 @@ class KudaKudaController extends ResourceController
             return $this->failNotFound(
                 'Data kuda-kuda tidak ditemukan'
             );
+        }
+
+        $baseUrl = rtrim(base_url(), '/');
+
+        if (!empty($data['image'])) {
+            $data['image_url'] = $baseUrl . '/img/teknik/kuda-kuda' . $data['image'];
+        } else {
+            $data['image_url'] = null;
         }
 
         return $this->respond([

@@ -18,6 +18,15 @@ class TendanganController extends ResourceController
     public function index()
     {
         $data = $this->model->findAll();
+        $baseUrl = rtrim(base_url(), '/');
+
+        foreach ($data as &$row) {
+            if (!empty($row['image'])) {
+                $row['image_url'] = $baseUrl . '/img/teknik/tendangan/' . $row['image'];
+            } else {
+                $row['image_url'] = null;
+            }
+        }
 
         if (empty($data)) {
             return $this->failNotFound(
@@ -40,6 +49,15 @@ class TendanganController extends ResourceController
     public function show($id = null)
     {
         $data = $this->model->find($id);
+        $baseUrl = rtrim(base_url(), '/');
+
+        foreach ($data as &$row) {
+            if (!empty($row['image'])) {
+                $row['image_url'] = $baseUrl . '/img/teknik/tendangan/' . $row['image'];
+            } else {
+                $row['image_url'] = null;
+            }
+        }
 
         if (!$data) {
             return $this->failNotFound(
