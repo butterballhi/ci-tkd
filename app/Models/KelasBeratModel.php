@@ -4,9 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class KelasBeratInfoModel extends Model
+class KelasBeratModel extends Model
 {
-    protected $table            = 'kelas_berat_info';
+    protected $table            = 'kelas_berat';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
